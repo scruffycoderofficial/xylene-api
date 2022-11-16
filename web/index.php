@@ -2,16 +2,19 @@
 
 declare(strict_types=1);
 
-use OffCut\RestfulApi\Core\Event\RequestEvent;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-$loader = require __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
-$loader->register();
-
+/**
+ * Request initialization
+ */
 $request = Request::createFromGlobals();
 
+/**
+ * Application initialization
+ */
 $app = new \OffCut\RestfulApi\Core\App();
 
 /**
@@ -25,17 +28,9 @@ $app->map('/about', function () {
     return new Response('This is the about page');
 });
 
-/**
- * Eventing
- */
-$app->on('request', function (RequestEvent $event) {
-    if ('admin' == $event->getRequest()->getPathInfo()) {
-        echo 'Access Denied!';
-        exit;
-    }
-});
+$app->map('/cases', \OffCut\RestfulApi\Controller\CasesController::class . '::indexAction');
 
 /**
  * Client response
  */
-$response = $app->handle($request);
+($app->handle($request))->send();
