@@ -7,11 +7,11 @@ namespace OffCut\RestfulApi\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
- * Class CasesController
+ * Class StocksController
  *
  * @package OffCut\RestfulApi\Controller
  */
-class CasesController
+class StocksController
 {
     /**
      * @return JsonResponse
