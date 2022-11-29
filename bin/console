@@ -1,0 +1,35 @@
+#!/usr/bin/env php
+<?php
+
+use Symfony\Component;
+use Symfony\Component\Config\FileLocator;
+use OffCut\RestfulApi\Console\App as Console;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
+
+require __DIR__ . '/../vendor/autoload.php';
+
+$container = new ContainerBuilder();
+
+try {
+
+    (new PhpFileLoader($container, new FileLocator(__DIR__ . '/../app')))
+        ->load('services.php');
+
+} catch (Exception $exc) {
+    echo "=====";
+    echo $exc->getMessage();
+    echo "=====";
+}
+
+$container->compile();
+
+try {
+
+    ($container->get(Console::class))->run();
+
+} catch (Exception $exc) {
+    echo "=====";
+    echo $exc->getMessage();
+    echo "=====";
+}

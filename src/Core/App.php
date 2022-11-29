@@ -23,6 +23,8 @@ use Symfony\Component\Routing\Exception\ResourceNotFoundException;
  */
 final class App implements HttpKernelInterface
 {
+    const VERSION = '0.0.1';
+
     /**
      * @var array App routes
      */
@@ -32,6 +34,11 @@ final class App implements HttpKernelInterface
      * @var EventDispatcher $dispatcher
      */
     protected $dispatcher;
+
+    /**
+     * @var array $providers
+     */
+    protected $providers = [];
 
     /**
      * App constructor.
@@ -80,12 +87,21 @@ final class App implements HttpKernelInterface
     }
 
     /**
+     * @return EventDispatcher
+     */
+    public function getDispatcher(): EventDispatcher
+    {
+        return $this->dispatcher;
+    }
+
+    /**
      * Associates a given URL with a callback function
      *
      * @param $path
      * @param $controller
      */
-    public function map($path, $controller) {
+    public function map($path, $controller)
+    {
         $this->routes->add($path, new Route($path, ['_controller' => $controller]));
     }
 }
