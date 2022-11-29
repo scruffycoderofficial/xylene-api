@@ -9,6 +9,13 @@ use Money\Money as BaseMoney;
 use InvalidArgumentException;
 use OffCut\RestfulApi\Domain\Contract\MoneyInterface;
 
+/**
+ * Class Money
+ *
+ * @package OffCut\RestfulApi\Domain\Util
+ *
+ * @author Siko Luyanda <sikoluyanda@gmail.com>
+ */
 final class Money implements MoneyInterface
 {
     /**

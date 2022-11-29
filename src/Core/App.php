@@ -19,7 +19,7 @@ use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 /**
  * Class App
  *
- * @package OffCut\RestfulApi\Core
+ * @author Siko Luyanda <sikoluyanda@gmail.com>
  */
 final class App implements HttpKernelInterface
 {
@@ -42,12 +42,15 @@ final class App implements HttpKernelInterface
 
     /**
      * App constructor.
+     *
+     * @param RouteCollection $routes
+     * @param EventDispatcher $events
      */
-    public function __construct()
+    public function __construct(RouteCollection $routes, EventDispatcher $events)
     {
-        $this->routes = new RouteCollection();
+        $this->routes = $routes;
 
-        $this->dispatcher = new EventDispatcher();
+        $this->dispatcher = $events;
     }
 
     /**

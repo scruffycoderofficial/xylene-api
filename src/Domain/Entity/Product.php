@@ -9,7 +9,7 @@ use OffCut\RestfulApi\Domain\Contract\MoneyInterface;
 /**
  * Class Product
  *
- * @package OffCut\RestfulApi\Domain\Entity
+ * @author Siko Luyanda <sikoluyanda@gmail.com>
  */
 final class Product
 {

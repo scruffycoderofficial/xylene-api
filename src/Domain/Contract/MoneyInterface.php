@@ -9,9 +9,7 @@ use Money\Money;
 /**
  * Interface MoneyInterface
  *
- * An interface that represents a Money Value Object.
- *
- * @package OffCut\RestfulApi\Domain\Contract
+ * @author Siko Luyanda <sikoluyanda@gmail.com>
  */
 interface MoneyInterface
 {
