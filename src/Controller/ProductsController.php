@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 /**
  * Class ProductsController
  *
- * @package OffCut\RestfulApi\Controller
+ * @author Siko Luyanda <sikoluyanda@gmail.com>
  */
 final class ProductsController
 {

@@ -9,8 +9,6 @@ use Symfony\Component\Console\Application;
 /**
  * Class App.
  *
- * @package OffCut\RestfulApi\Console
- *
  * @author Siko Luyanda <sikoluyanda@gmail.com>
  */
 class App extends Application

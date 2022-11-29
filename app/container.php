@@ -6,8 +6,13 @@ use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 
 $container = new ContainerBuilder();
 
-(new PhpFileLoader($container, new FileLocator(__DIR__)))
-    ->load('services.php');
+try {
+
+    (new PhpFileLoader($container, new FileLocator(__DIR__)))
+        ->load('services.php');
+
+} catch (Exception $e) {
+}
 
 $container->compile();
 

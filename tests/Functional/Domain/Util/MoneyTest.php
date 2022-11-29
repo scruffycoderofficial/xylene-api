@@ -8,6 +8,11 @@ use Money\Currency;
 use OffCut\RestfulApi\Domain\Util\Money;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * Class MoneyTest
+ *
+ * @author Siko Luyanda <sikoluyanda@gmail.com>
+ */
 class MoneyTest extends TestCase
 {
     /**

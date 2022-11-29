@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * Class ProductTest
  *
- * @package OffCut\RestfulApi\Tests\Functional\Domain\Entity
+ * @author Siko Luyanda <sikoluyanda@gmail.com>
  */
 class ProductTest extends TestCase
 {
