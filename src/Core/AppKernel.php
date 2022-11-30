@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OffCut\RestfulApi\Core;
 
 use Exception;
+use Psr\Container\ContainerInterface;
 use RuntimeException;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\HttpFoundation\Exception\RequestExceptionInterface;
@@ -82,6 +83,11 @@ final class AppKernel implements HttpKernelInterface
     protected $booted = false;
 
     /**
+     * @var $container
+     */
+    protected $container = null;
+
+    /**
      * App constructor.
      *
      * @param RouteCollection $routes
@@ -157,6 +163,25 @@ final class AppKernel implements HttpKernelInterface
         $this->booted = true;
 
         // Handle booting of loaded Service Providers
+    }
+
+    /**
+     * @param $container
+     * @return $this
+     */
+    public function setContainer(ContainerInterface $container = null): self
+    {
+        $this->container = $container;
+
+        return $this;
+    }
+
+    /**
+     * @return ContainerInterface
+     */
+    public function getContainer(): ContainerInterface
+    {
+        return $this->container;
     }
 
     /**
