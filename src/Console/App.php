@@ -29,6 +29,6 @@ class App extends Application
         /*
          * Override the name of this Application and give it a version
          */
-        parent::__construct('OffCut Solutions Restful Api Console', \OffCut\RestfulApi\Core\App::VERSION);
+        parent::__construct('OffCut Solutions Restful Api Console', \OffCut\RestfulApi\Core\AppKernel::VERSION);
     }
 }
