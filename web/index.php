@@ -18,6 +18,7 @@ $app = $container->get(HttpKernelInterface::class);
 
 $app->setContainer($container);
 
+require __DIR__ . '/../app/providers.php';
 require __DIR__ . '/../app/routes.php';
 
 ($app->handle($request))->send();

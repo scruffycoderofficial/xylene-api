@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace OffCut\RestfulApi\Core\Provider;
+namespace OffCut\RestfulApi\Core\Provider\Contract;
 
 use Psr\Container\ContainerInterface;
+use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 /**
@@ -15,9 +16,9 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 interface  EventListenerProviderInterface
 {
     /**
-     * @param ContainerInterface $app
+     * @param HttpKernelInterface $app
      * @param EventDispatcherInterface $dispatcher
      * @return mixed
      */
-    public function subscribe(ContainerInterface $app, EventDispatcherInterface $dispatcher): void;
+    public function subscribe(HttpKernelInterface $app, EventDispatcherInterface $dispatcher): void;
 }

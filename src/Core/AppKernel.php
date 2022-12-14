@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace OffCut\RestfulApi\Core;
 
 use Exception;
+use OffCut\RestfulApi\Core\Provider\Contract\BootableProviderInterface;
+use OffCut\RestfulApi\Core\Provider\Contract\EventListenerProviderInterface;
+use OffCut\RestfulApi\Core\Provider\Contract\ServiceProviderInterface;
 use Psr\Container\ContainerInterface;
 use RuntimeException;
 use Symfony\Component\EventDispatcher\EventDispatcher;
@@ -154,6 +157,21 @@ final class AppKernel implements HttpKernelInterface
         $this->routes->add($path, new Route($path, ['_controller' => $controller]));
     }
 
+    /**
+     * Registers a service provider.
+     *
+     * @param ServiceProviderInterface $provider A ServiceProviderInterface instance
+     * @param array                    $values   An array of values that customizes the provider
+     *
+     * @return AppKernel
+     */
+    public function register(ServiceProviderInterface $provider, array $values = []): self
+    {
+        $this->providers[] = $provider;
+
+        return $this;
+    }
+
     public function boot()
     {
         if ($this->booted) {
@@ -162,7 +180,18 @@ final class AppKernel implements HttpKernelInterface
 
         $this->booted = true;
 
-        // Handle booting of loaded Service Providers
+        foreach ($this->providers as $provider) {
+
+            $provider->register($this->container);
+
+            if ($provider instanceof EventListenerProviderInterface) {
+                $provider->subscribe($this, $this['dispatcher']);
+            }
+
+            if ($provider instanceof BootableProviderInterface) {
+                $provider->boot($this);
+            }
+        }
     }
 
     /**

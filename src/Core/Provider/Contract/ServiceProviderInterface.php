@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace OffCut\RestfulApi\Core\Provider;
+namespace OffCut\RestfulApi\Core\Provider\Contract;
 
 use Psr\Container\ContainerInterface;
 
