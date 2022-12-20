@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OffCut\RestfulApi\Core;
 
 use Exception;
+use OffCut\RestfulApi\Core\Controller\ControllerResolver;
 use OffCut\RestfulApi\Core\Provider\Contract\BootableProviderInterface;
 use OffCut\RestfulApi\Core\Provider\Contract\EventListenerProviderInterface;
 use OffCut\RestfulApi\Core\Provider\Contract\ServiceProviderInterface;
@@ -17,7 +18,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Controller\ArgumentResolver;
 use Symfony\Component\HttpKernel\Controller\ArgumentResolverInterface;
-use Symfony\Component\HttpKernel\Controller\ControllerResolver;
+//use Symfony\Component\HttpKernel\Controller\ControllerResolver;
 use Symfony\Component\HttpKernel\Event\ControllerArgumentsEvent;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
@@ -185,7 +186,7 @@ final class AppKernel implements HttpKernelInterface
             $provider->register($this->container);
 
             if ($provider instanceof EventListenerProviderInterface) {
-                $provider->subscribe($this, $this['dispatcher']);
+                $provider->subscribe($this, $this->dispatcher);
             }
 
             if ($provider instanceof BootableProviderInterface) {

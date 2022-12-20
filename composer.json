@@ -15,7 +15,7 @@
     },
     "autoload": {
         "psr-4": {
-            "OffCut\\RestfulApi\\": "src/"
+            "OffCut\\RestfulApi\\": ["app/","src/"]
         }
     },
     "autoload-dev": {
