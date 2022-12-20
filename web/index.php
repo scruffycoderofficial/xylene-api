@@ -12,13 +12,13 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 $request = Request::createFromGlobals();
 
-$container = (require __DIR__ . '/../app/container.php');
+$container = (require __DIR__ . '/../config/container.php');
 
 $app = $container->get(HttpKernelInterface::class);
 
 $app->setContainer($container);
 
-require __DIR__ . '/../app/providers.php';
-require __DIR__ . '/../app/routes.php';
+require __DIR__ . '/../config/providers.php';
+require __DIR__ . '/../config/routes.php';
 
 ($app->handle($request))->send();

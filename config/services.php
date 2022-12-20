@@ -25,11 +25,6 @@ return static function (ContainerConfigurator $configurator) {
 
     $services->load('OffCut\\RestfulApi\\', '../src/*');
 
-    $services->set('offcut_solutions.api.controller.stocklist', StocksController::class)
-        ->args([
-            service('offcut_solutions.api.container')
-        ]);
-
     $services->set('offcut_solutions.api.routes', RouteCollection::class);
 
     $services->set('offcut_solutions.api.container', Container::class);
