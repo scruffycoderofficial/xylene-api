@@ -23,12 +23,21 @@ return static function (ContainerConfigurator $configurator) {
 
     $services = $configurator->services()->defaults()->autowire()->autoconfigure();
 
+    /**
+     * Core namespace definitions through the service container
+     */
     $services->load('OffCut\\RestfulApi\\', '../src/*');
 
-    $services->set('offcut_solutions.api.routes', RouteCollection::class);
-
+    /**
+     * Generic service definitions
+     */
     $services->set('offcut_solutions.api.container', Container::class);
     $services->alias(ContainerInterface::class, 'offcut_solutions.api.container');
+
+    /**
+     * Compulsory and/or necessary framework definitions
+     */
+    $services->set('offcut_solutions.api.routes', RouteCollection::class);
 
     $services->set('offcut_solutions.api.events', EventDispatcher::class);
     $services->alias(EventDispatcherInterface::class, 'offcut_solutions.api.events');
@@ -41,6 +50,10 @@ return static function (ContainerConfigurator $configurator) {
     $services->set('offcut_solutions.api.controller_argument_resolver', ArgumentResolver::class);
     $services->alias(ArgumentResolverInterface::class, 'offcut_solutions.api.controller_argument_resolver');
 
+    /**
+     * Definition of the main Application Kernel that handles responding
+     * the Client Request setup
+     */
     $services->set('offcut_solutions.api.app', AppKernel::class)
         ->args([
             service('offcut_solutions.api.routes'),

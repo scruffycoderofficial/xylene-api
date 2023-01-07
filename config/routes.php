@@ -1,11 +1,6 @@
 <?php
 
 /**
- * List all Products in Stock
+ * List all Parties on record
  */
-$app->map('/api/stocklist', "OffCut\RestfulApi\Controller\StocksController::indexAction");
-
-/**
- * List all Products
- */
-$app->map('/api/products', "OffCut\RestfulApi\Controller\ProductsController::indexAction");
+$app->map('/api/parties', "OffCut\RestfulApi\App\Party\PartyController::parties");

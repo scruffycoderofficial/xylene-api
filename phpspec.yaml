@@ -1,0 +1,8 @@
+formatter.name: pretty
+
+suites:
+
+  default_http_handler_suite:
+    namespace: OffCut\RestfulApi
+    psr4_prefix: OffCut\RestfulApi
+    src_path: '%paths.config%/app'
