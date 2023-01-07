@@ -1,13 +1,13 @@
 <?php
 
-namespace OffCut\RestfulApi\App\Party\Entity;
+namespace Xylene\Demo\App\Party\Entity;
 
 use DateTime;
 
 /**
  * Class Party
  *
- * @package OffCut\RestfulApi\App\Party\Entity
+ * @package Xylene\Demo\App\Party\Entity
  * @author Luyanda Siko <sikoluyanda@gmail.com>
  */
 class Party

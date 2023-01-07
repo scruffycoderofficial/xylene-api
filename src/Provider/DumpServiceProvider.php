@@ -2,14 +2,15 @@
 
 declare(strict_types=1);
 
-namespace OffCut\RestfulApi\Core\Provider;
+namespace Xylene\Provider;
 
 use Psr\Container\ContainerInterface;
-use OffCut\RestfulApi\Core\Provider\Contract\ServiceProviderInterface;
+use Xylene\Provider\Contract\ServiceProviderInterface;
 
 /**
  * Class DumpServiceProvider
  *
+ * @package Xylene\Provider
  * @author Siko Luyanda <sikoluyanda@gmail.com>
  */
 class DumpServiceProvider implements ServiceProviderInterface

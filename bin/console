@@ -2,8 +2,8 @@
 <?php
 
 use Symfony\Component;
+use Xylene\Console\Application;
 use Symfony\Component\Config\FileLocator;
-use OffCut\RestfulApi\Console\App as Console;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 
@@ -26,7 +26,7 @@ $container->compile();
 
 try {
 
-    ($container->get(Console::class))->run();
+    ($container->get(Application::class))->run();
 
 } catch (Exception $exc) {
     echo "=====";

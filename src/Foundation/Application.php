@@ -2,48 +2,46 @@
 
 declare(strict_types=1);
 
-namespace OffCut\RestfulApi\Core;
+namespace Xylene\Foundation;
 
 use Exception;
-use OffCut\RestfulApi\Core\Controller\ControllerResolver;
-use OffCut\RestfulApi\Core\Provider\Contract\BootableProviderInterface;
-use OffCut\RestfulApi\Core\Provider\Contract\EventListenerProviderInterface;
-use OffCut\RestfulApi\Core\Provider\Contract\ServiceProviderInterface;
-use Psr\Container\ContainerInterface;
-use RuntimeException;
-use Symfony\Component\EventDispatcher\EventDispatcher;
-use Symfony\Component\HttpFoundation\Exception\RequestExceptionInterface;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Controller\ArgumentResolver;
-use Symfony\Component\HttpKernel\Controller\ArgumentResolverInterface;
-//use Symfony\Component\HttpKernel\Controller\ControllerResolver;
-use Symfony\Component\HttpKernel\Event\ControllerArgumentsEvent;
-use Symfony\Component\HttpKernel\Event\ControllerEvent;
-use Symfony\Component\HttpKernel\Event\ExceptionEvent;
-use Symfony\Component\HttpKernel\Event\FinishRequestEvent;
-use Symfony\Component\HttpKernel\Event\RequestEvent;
-use Symfony\Component\HttpKernel\Event\ResponseEvent;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\HttpKernel\Exception\ControllerDoesNotReturnResponseException;
-use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\HttpKernel\HttpKernelInterface;
-use Symfony\Component\HttpKernel\KernelEvents;
-use Symfony\Component\Routing\Exception\ResourceNotFoundException;
-use Symfony\Component\Routing\Matcher\UrlMatcher;
-use Symfony\Component\Routing\RequestContext;
-use Symfony\Component\Routing\Route;
-use Symfony\Component\Routing\RouteCollection;
 use Throwable;
+use Xylene\Action\ActionResolver;
+use Symfony\Component\Routing\Route;
+use Psr\Container\ContainerInterface;
+use Symfony\Component\Routing\RouteCollection;
+use Symfony\Component\HttpKernel\KernelEvents;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\RequestContext;
+use Symfony\Component\Routing\Matcher\UrlMatcher;
+use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
+use Symfony\Component\HttpKernel\HttpKernelInterface;
+use Symfony\Component\HttpKernel\Event\ResponseEvent;
+use Symfony\Component\HttpKernel\Event\ExceptionEvent;
+use Xylene\Provider\Contract\ServiceProviderInterface;
+use Symfony\Component\EventDispatcher\EventDispatcher;
+use Xylene\Provider\Contract\BootableProviderInterface;
+use Symfony\Component\HttpKernel\Event\ControllerEvent;
+use Symfony\Component\HttpKernel\Event\FinishRequestEvent;
+use Xylene\Provider\Contract\EventListenerProviderInterface;
+use Symfony\Component\HttpKernel\Controller\ArgumentResolver;
+use Symfony\Component\HttpKernel\Event\ControllerArgumentsEvent;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\HttpKernel\Controller\ArgumentResolverInterface;
+use Symfony\Component\HttpFoundation\Exception\RequestExceptionInterface;
+use Symfony\Component\HttpKernel\Exception\ControllerDoesNotReturnResponseException;
 
 /**
- * Class AppKernel
+ * Class Application
  *
+ * @package Xylene\Foundation
  * @author Siko Luyanda <sikoluyanda@gmail.com>
  */
-final class AppKernel implements HttpKernelInterface
+final class Application implements HttpKernelInterface
 {
     /**
      * The version of this AppKernel, to be
@@ -62,9 +60,9 @@ final class AppKernel implements HttpKernelInterface
     private $dispatcher;
 
     /**
-     * @var $controllerResolver
+     * @var $actionResolver
      */
-    private $controllerResolver;
+    private $actionResolver;
 
     /**
      * @var $requestStack
@@ -96,15 +94,15 @@ final class AppKernel implements HttpKernelInterface
      *
      * @param RouteCollection $routes
      * @param EventDispatcher $events
-     * @param ControllerResolver $controllerResolver
+     * @param ActionResolver $actionResolver
      * @param RequestStack|null $requestStack
      * @param ArgumentResolverInterface|null $argumentResolver
      */
-    public function __construct(RouteCollection $routes, EventDispatcher $events, ControllerResolver $controllerResolver, RequestStack $requestStack = null, ArgumentResolverInterface $argumentResolver = null)
+    public function __construct(RouteCollection $routes, EventDispatcher $events, ActionResolver $actionResolver, RequestStack $requestStack = null, ArgumentResolverInterface $argumentResolver = null)
     {
         $this->routes = $routes;
         $this->dispatcher = $events;
-        $this->controllerResolver = $controllerResolver;
+        $this->actionResolver = $actionResolver;
         $this->requestStack = $requestStack ?? new RequestStack();
         $this->argumentResolver = $argumentResolver ?? new ArgumentResolver();
     }
@@ -164,7 +162,7 @@ final class AppKernel implements HttpKernelInterface
      * @param ServiceProviderInterface $provider A ServiceProviderInterface instance
      * @param array                    $values   An array of values that customizes the provider
      *
-     * @return AppKernel
+     * @return Application
      */
     public function register(ServiceProviderInterface $provider, array $values = []): self
     {
@@ -252,7 +250,7 @@ final class AppKernel implements HttpKernelInterface
 
         $request->attributes->add($matcher->match($request->getPathInfo()));
 
-        if (false === $controller = $this->controllerResolver->getController($request)) {
+        if (false === $controller = $this->actionResolver->getController($request)) {
             throw new NotFoundHttpException(sprintf('Unable to find the controller for path "%s". The route is wrongly configured.', $request->getPathInfo()));
         }
 

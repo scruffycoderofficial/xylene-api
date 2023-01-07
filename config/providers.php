@@ -1,5 +1,5 @@
 <?php
 
-use OffCut\RestfulApi\Core\Provider\DumpServiceProvider;
+use Xylene\Provider\DumpServiceProvider;
 
 $app->register(new DumpServiceProvider());

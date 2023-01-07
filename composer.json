@@ -15,12 +15,12 @@
     },
     "autoload": {
         "psr-4": {
-            "OffCut\\RestfulApi\\": ["app/","src/"]
+            "Xylene\\": ["app/","src/"]
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "OffCut\\RestfulApi\\Tests\\": "tests/"
+            "Xylene\\Tests\\": "tests/"
         }
     },
     "require-dev": {

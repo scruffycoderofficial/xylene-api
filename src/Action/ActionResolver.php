@@ -2,21 +2,36 @@
 
 declare(strict_types=1);
 
-namespace OffCut\RestfulApi\Core\Controller;
+namespace Xylene\Action;
 
 use Exception;
-use Psr\Container\ContainerExceptionInterface;
-use Psr\Container\NotFoundExceptionInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Container\ContainerInterface;
+use Psr\Container\NotFoundExceptionInterface;
+use Psr\Container\ContainerExceptionInterface;
 use Symfony\Component\DependencyInjection\Container;
+use Symfony\Component\HttpKernel\Controller\ControllerResolver;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Symfony\Component\HttpKernel\Controller\ControllerResolver as BaseControllerResolver;
 
-class ControllerResolver extends BaseControllerResolver
+/**
+ * Class ActionResolver
+ *
+ * @package Xylene\Action
+ * @author Luyanda Siko <sikoluyanda@gmail.com>
+ */
+class ActionResolver extends ControllerResolver
 {
+    /**
+     * @var ContainerInterface $container
+     */
     protected $container;
 
+    /**
+     * ActionResolver constructor.
+     *
+     * @param ContainerInterface $container
+     * @param LoggerInterface|null $logger
+     */
     public function __construct(ContainerInterface $container, LoggerInterface $logger = null)
     {
         $this->container = $container;
