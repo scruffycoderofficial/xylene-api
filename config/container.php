@@ -8,12 +8,12 @@ $container = new ContainerBuilder();
 
 try {
 
-    (new PhpFileLoader($container, new FileLocator(__DIR__)))
-        ->load('services.php');
+    $loader = (new PhpFileLoader($container, new FileLocator(__DIR__)));
+
+    $loader->load('parameters.php');
+    $loader->load('services.php');
 
 } catch (Exception $e) {
 }
-
-$container->compile();
 
 return $container;

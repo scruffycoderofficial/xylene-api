@@ -14,6 +14,7 @@ use Symfony\Component\Console\Application as ParentApplication;
  */
 class Application extends ParentApplication
 {
+    public const VERSION = '0.0.1';
     /**
      * Application constructor.
      *
@@ -30,6 +31,6 @@ class Application extends ParentApplication
         /*
          * Override the name of this Application and give it a version
          */
-        parent::__construct('Xylene Console', \OffCut\RestfulApi\Core\AppKernel::VERSION);
+        parent::__construct('Xylene Console', self::VERSION);
     }
 }

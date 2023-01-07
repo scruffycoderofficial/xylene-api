@@ -22,26 +22,20 @@ return static function (ContainerConfigurator $configurator) {
 
     $services = $configurator->services()->defaults()->autowire()->autoconfigure();
 
-    /**
-     * Core namespace definitions through the service container
-     */
     $services->load('Xylene\\', '../src/*');
 
-    /**
-     * Generic service definitions
-     */
     $services->set('xylene.app.container', Container::class);
     $services->alias(ContainerInterface::class, 'xylene.app.container');
 
-    /**
-     * Compulsory and/or necessary framework definitions
-     */
     $services->set('xylene.app.routes', RouteCollection::class);
 
     $services->set('xylene.app.events', EventDispatcher::class);
     $services->alias(EventDispatcherInterface::class, 'xylene.app.events');
 
-    $services->set('xylene.app.action_resolver', ActionResolver::class);
+    $services->set('xylene.app.action_resolver', ActionResolver::class)
+        ->args([
+            service('xylene.app.container')
+        ]);
     $services->alias(ControllerResolverInterface::class, 'xylene.app.action_resolver');
 
     $services->set('xylene.app.request_stack', RequestStack::class);
@@ -49,10 +43,6 @@ return static function (ContainerConfigurator $configurator) {
     $services->set('xylene.app.action_argument_resolver', ArgumentResolver::class);
     $services->alias(ArgumentResolverInterface::class, 'xylene.app.action_argument_resolver');
 
-    /**
-     * Definition of the main Application Kernel that handles responding
-     * the Client Request setup
-     */
     $services->set('xylene.app', Application::class)
         ->args([
             service('xylene.app.routes'),

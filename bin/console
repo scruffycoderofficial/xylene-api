@@ -13,8 +13,10 @@ $container = new ContainerBuilder();
 
 try {
 
-    (new PhpFileLoader($container, new FileLocator(__DIR__ . '/../app')))
-        ->load('services.php');
+    $loader = (new PhpFileLoader($container, new FileLocator(__DIR__ . '/../config')));
+
+    $loader->load('parameters.php');
+    $loader->load('services.php');
 
 } catch (Exception $exc) {
     echo "=====";

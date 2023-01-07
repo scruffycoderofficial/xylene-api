@@ -21,4 +21,6 @@ $app->setContainer($container);
 require __DIR__ . '/../config/providers.php';
 require __DIR__ . '/../config/routes.php';
 
+$container->compile();
+
 ($app->handle($request))->send();
