@@ -3,4 +3,4 @@
 /**
  * List all Parties on record
  */
-$app->map('/api/parties', "OffCut\RestfulApi\App\Party\PartyController::parties");
+$app->map('/api/parties', "Xylene\Demo\App\Party\ShowParties::show");

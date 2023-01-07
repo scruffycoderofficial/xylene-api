@@ -2,16 +2,17 @@
 
 declare(strict_types=1);
 
-namespace OffCut\RestfulApi\Console;
+namespace Xylene\Console;
 
-use Symfony\Component\Console\Application;
+use Symfony\Component\Console\Application as ParentApplication;
 
 /**
- * Class App.
+ * Class Application.
  *
+ * @package Xylen\Console
  * @author Siko Luyanda <sikoluyanda@gmail.com>
  */
-class App extends Application
+class Application extends ParentApplication
 {
     /**
      * Application constructor.
@@ -29,6 +30,6 @@ class App extends Application
         /*
          * Override the name of this Application and give it a version
          */
-        parent::__construct('OffCut Solutions Restful Api Console', \OffCut\RestfulApi\Core\AppKernel::VERSION);
+        parent::__construct('Xylene Console', \OffCut\RestfulApi\Core\AppKernel::VERSION);
     }
 }

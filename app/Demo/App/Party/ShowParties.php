@@ -2,24 +2,24 @@
 
 declare(strict_types=1);
 
-namespace OffCut\RestfulApi\App\Party;
+namespace Xylene\Demo\App\Party;
 
-use OffCut\RestfulApi\App\Party\Entity\Party;
-use OffCut\RestfulApi\Core\Controller\AbstractController;
+use Xylene\Demo\App\Party\Entity\Party;
+use Xylene\Action\ActionHandler;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
- * Class PartyController
+ * Class ShowParties
  *
- * @package OffCut\RestfulApi\App\Party
+ * @package Xylene\Demo\App\Party
  * @author Luyanda Siko <sikoluyanda@gmail.com>
  */
-class PartyController extends AbstractController
+class ShowParties extends ActionHandler
 {
     /**
      * A list of Parties registered on the System
      */
-    public function parties(): JsonResponse
+    public function show(): JsonResponse|array
     {
         $parties = [];
 
@@ -56,5 +56,9 @@ class PartyController extends AbstractController
         ]);
 
         return new JsonResponse($parties);
+    }
+
+    public function registerEvents($vents = []): void
+    {
     }
 }

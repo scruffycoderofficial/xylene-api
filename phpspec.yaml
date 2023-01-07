@@ -3,6 +3,6 @@ formatter.name: pretty
 suites:
 
   app_demo_suite:
-    namespace: Xylen
-    psr4_prefix: Xylen
+    namespace: Xylene
+    psr4_prefix: Xylene
     src_path: '%paths.config%/app'

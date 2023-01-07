@@ -2,13 +2,14 @@
 
 declare(strict_types=1);
 
-namespace OffCut\RestfulApi\Core\Provider\Contract;
+namespace Xylene\Provider\Contract;
 
-use OffCut\RestfulApi\Core\AppKernel as Application;
+use Xylene\Foundation\Application as Application;
 
 /**
  * Interface BootableProviderInterface
  *
+ * @package Xylene\Provider\Contract
  * @author Siko Luyanda <sikoluyanda@gmail.com>
  */
 interface BootableProviderInterface

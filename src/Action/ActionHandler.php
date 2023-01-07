@@ -2,33 +2,46 @@
 
 declare(strict_types=1);
 
-namespace OffCut\RestfulApi\Core\Controller;
+namespace Xylene\Action;
 
 use Psr\Container\ContainerInterface;
 
 /**
- * Class AbstractController
+ * Class ActionHandler
  *
- * @package OffCut\RestfulApi\Core\Controller
+ * @package Xylen\Action
+ * @author Luyanda Siko <sikoluyanda@gmail.com>
  */
-class AbstractController
+abstract class ActionHandler
 {
+    /**
+     * @var ContainerInterface $container
+     */
     protected $container;
 
     /**
      * StocksController constructor.
+     *
      * @param $container
      */
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
+
+        $this->registerEvents();
     }
 
-    /**
+    /**s
      * @return ContainerInterface
      */
     public function getContainer(): ContainerInterface
     {
         return $this->container;
     }
+
+    /**
+     * @param array $vents
+     * @return mixed
+     */
+    abstract public function registerEvents($vents = []): void;
 }

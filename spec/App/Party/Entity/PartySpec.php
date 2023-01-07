@@ -1,12 +1,21 @@
 <?php
 
-namespace spec\OffCut\RestfulApi\App\Party\Entity;
+namespace spec\Xylene\Demo\App\Party\Entity;
 
-use OffCut\RestfulApi\App\Party\Entity\Party;
 use PhpSpec\ObjectBehavior;
+use Xylene\Demo\App\Party\Entity\Party;
 
+/**
+ * Class PartySpec
+ *
+ * @package spec\Xylene\Demo\App\Party\Entity
+ * @author Luyanda Siko <sikoluyanda@gmail.com>
+ */
 class PartySpec extends ObjectBehavior
 {
+    /**
+     * Subject can be instantiated
+     */
     function it_is_initializable()
     {
         $this->shouldHaveType(Party::class);

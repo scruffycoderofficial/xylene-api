@@ -15,12 +15,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Xylen\\": ["app/","src/"]
+            "Xylene\\": ["app/","src/"]
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Xylen\\Tests\\": "tests/"
+            "Xylene\\Tests\\": "tests/"
         }
     },
     "require-dev": {

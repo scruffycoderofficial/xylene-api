@@ -2,13 +2,14 @@
 
 declare(strict_types=1);
 
-namespace OffCut\RestfulApi\Core\Provider\Contract;
+namespace Xylene\Provider\Contract;
 
 use Psr\Container\ContainerInterface;
 
 /**
  * Interface ServiceProviderInterface
  *
+ * @package Xylene\Provider\Contract
  * @author Siko Luyanda <sikoluyanda@gmail.com>
  */
 interface ServiceProviderInterface
