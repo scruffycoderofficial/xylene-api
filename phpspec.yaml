@@ -2,7 +2,7 @@ formatter.name: pretty
 
 suites:
 
-  default_http_handler_suite:
-    namespace: OffCut\RestfulApi
-    psr4_prefix: OffCut\RestfulApi
+  app_demo_suite:
+    namespace: Xylen
+    psr4_prefix: Xylen
     src_path: '%paths.config%/app'
