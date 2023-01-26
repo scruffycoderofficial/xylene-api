@@ -10,7 +10,7 @@ use Psr\Container\ContainerInterface;
  * Interface ServiceProviderInterface
  *
  * @package Xylene\Provider\Contract
- * @author Siko Luyanda <sikoluyanda@gmail.com>
+ * @author Luyanda Siko <sikoluyanda@gmail.com>
  */
 interface ServiceProviderInterface
 {

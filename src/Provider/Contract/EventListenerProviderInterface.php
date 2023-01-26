@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Xylene\Provider\Contract;
 
-use Psr\Container\ContainerInterface;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
@@ -12,7 +11,7 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
  * Interface EventListenerProviderInterface
  *
  * @package Xylene\Provider\Contract
- * @author Siko Luyanda <sikoluyanda@gmail.com>
+ * @author Luyanda Siko <sikoluyanda@gmail.com>
  */
 interface  EventListenerProviderInterface
 {
