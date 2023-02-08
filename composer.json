@@ -10,8 +10,10 @@
         "moneyphp/money": "dev-master",
         "symfony/config": "^6.0",
         "monolog/monolog": "^2.8",
-        "doctrine/orm": "^2.13",
-        "symfony/dotenv": "^6.0"
+        "symfony/dotenv": "^6.0",
+        "symfony/cache": "^6.0",
+        "doctrine/annotations": "^2.0",
+        "doctrine/orm": "^2.14"
     },
     "autoload": {
         "psr-4": {

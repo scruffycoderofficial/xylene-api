@@ -1,37 +1,13 @@
 #!/usr/bin/env php
 <?php
 
-use Symfony\Component;
-use Xylene\Console\Application;
-use Symfony\Component\Config\FileLocator;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
+use Symfony\Component\Console\Application;
+use Symfony\Component\Dotenv\Dotenv;
 
 require __DIR__ . '/../vendor/autoload.php';
 
-$container = new ContainerBuilder();
+(new Dotenv())->load(__DIR__ . '/../.env');
 
-try {
+$cli = new Application();
 
-    $loader = (new PhpFileLoader($container, new FileLocator(__DIR__ . '/../config')));
-
-    $loader->load('parameters.php');
-    $loader->load('services.php');
-
-} catch (Exception $exc) {
-    echo "=====";
-    echo $exc->getMessage();
-    echo "=====";
-}
-
-$container->compile();
-
-try {
-
-    ($container->get(Application::class))->run();
-
-} catch (Exception $exc) {
-    echo "=====";
-    echo $exc->getMessage();
-    echo "=====";
-}
+$cli->run();

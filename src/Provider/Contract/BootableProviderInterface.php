@@ -10,7 +10,7 @@ use Xylene\Foundation\Application as Application;
  * Interface BootableProviderInterface
  *
  * @package Xylene\Provider\Contract
- * @author Siko Luyanda <sikoluyanda@gmail.com>
+ * @author Luyanda Siko <sikoluyanda@gmail.com>
  */
 interface BootableProviderInterface
 {

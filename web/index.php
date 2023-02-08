@@ -4,23 +4,16 @@ declare(strict_types=1);
 
 use Symfony\Component\Dotenv\Dotenv;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\HttpKernelInterface;
+use Xylene\Demo\DemoFrontController;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
 (new Dotenv())->load(__DIR__ . '/../.env');
 
-$request = Request::createFromGlobals();
+try {
 
-$container = (require __DIR__ . '/../config/container.php');
+    ((new DemoFrontController())->getApplication()->handle(Request::createFromGlobals()))->send();
 
-$app = $container->get(HttpKernelInterface::class);
+} catch (Exception $e) {
+}
 
-$app->setContainer($container);
-
-require __DIR__ . '/../config/providers.php';
-require __DIR__ . '/../config/routes.php';
-
-$container->compile();
-
-($app->handle($request))->send();

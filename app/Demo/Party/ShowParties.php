@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Xylene\Demo\App\Party;
+namespace Xylene\Demo\Party;
 
-use Xylene\Demo\App\Party\Entity\Party;
 use Xylene\Action\ActionHandler;
+use Xylene\Demo\Party\Entity\Party;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * Class ShowParties
  *
- * @package Xylene\Demo\App\Party
+ * @package Xylene\Demo\Party
  * @author Luyanda Siko <sikoluyanda@gmail.com>
  */
 class ShowParties extends ActionHandler

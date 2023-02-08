@@ -9,11 +9,11 @@ use Throwable;
 use Xylene\Action\ActionResolver;
 use Symfony\Component\Routing\Route;
 use Psr\Container\ContainerInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\RouteCollection;
 use Symfony\Component\HttpKernel\KernelEvents;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\Matcher\UrlMatcher;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
@@ -39,12 +39,12 @@ use Symfony\Component\HttpKernel\Exception\ControllerDoesNotReturnResponseExcept
  * Class Application
  *
  * @package Xylene\Foundation
- * @author Siko Luyanda <sikoluyanda@gmail.com>
+ * @author Luyanda Siko <sikoluyanda@gmail.com>
  */
 final class Application implements HttpKernelInterface
 {
     /**
-     * The version of this AppKernel, to be
+     * The version of this Application, to be
      * updated with each release
      */
     const VERSION = '0.0.1';
@@ -107,6 +107,11 @@ final class Application implements HttpKernelInterface
         $this->argumentResolver = $argumentResolver ?? new ArgumentResolver();
     }
 
+    public function isBooted(): bool
+    {
+        return $this->booted;
+    }
+
     /**
      * {@inheritdoc}
      *
@@ -117,7 +122,7 @@ final class Application implements HttpKernelInterface
      * @throws Exception
      * @throws Throwable
      */
-    public function handle(Request $request, int $type = self::MAIN_REQUEST, bool $catch = true): Response
+    public function handle(Request $request, int $type = HttpKernelInterface::MAIN_REQUEST, bool $catch = true): Response
     {
         $request->headers->set('X-Php-Ob-Level', (string) ob_get_level());
 
@@ -125,24 +130,29 @@ final class Application implements HttpKernelInterface
 
         try {
 
-            if (!$this->booted) {
+            if (!$this->isBooted()) {
                 $this->boot();
             }
 
             return $this->handleRaw($request, $this->getUrlMatcher($request), $type);
 
         } catch (Exception $e) {
+
             if ($e instanceof RequestExceptionInterface) {
                 $e = new BadRequestHttpException($e->getMessage(), $e);
             }
+
             if (false === $catch) {
+
                 $this->finishRequest($request, $type);
 
                 throw $e;
             }
 
             return $this->handleThrowable($e, $request, $type);
+
         } finally {
+
             $this->requestStack->pop();
         }
     }
@@ -184,10 +194,12 @@ final class Application implements HttpKernelInterface
             $provider->register($this->container);
 
             if ($provider instanceof EventListenerProviderInterface) {
+
                 $provider->subscribe($this, $this->dispatcher);
             }
 
             if ($provider instanceof BootableProviderInterface) {
+
                 $provider->boot($this);
             }
         }
@@ -243,34 +255,43 @@ final class Application implements HttpKernelInterface
     private function handleRaw($request, $matcher, $type): Response
     {
         $requestEvent = new RequestEvent($this, $request, $type);
+
         $this->dispatcher->dispatch($requestEvent, KernelEvents::REQUEST);
+
         if ($requestEvent->hasResponse()) {
+
             return $this->filterResponse($requestEvent->getResponse(), $request, $type);
         }
 
         $request->attributes->add($matcher->match($request->getPathInfo()));
 
         if (false === $controller = $this->actionResolver->getController($request)) {
+
             throw new NotFoundHttpException(sprintf('Unable to find the controller for path "%s". The route is wrongly configured.', $request->getPathInfo()));
         }
 
         $controllerEvent = new ControllerEvent($this, $controller, $request, $type);
         $this->dispatcher->dispatch($controllerEvent, KernelEvents::CONTROLLER);
-        $controller = $controllerEvent->getController();
 
+        $controller = $controllerEvent->getController();
         $arguments = $this->argumentResolver->getArguments($request, $controller);
 
         $controllerArgumentsEvent = new ControllerArgumentsEvent($this, $controller, $arguments, $request, $type);
+
         $this->dispatcher->dispatch($controllerArgumentsEvent, KernelEvents::CONTROLLER_ARGUMENTS);
+
         $controller = $controllerArgumentsEvent->getController();
         $arguments = $controllerArgumentsEvent->getArguments();
 
         $response = call_user_func_array($controller, $arguments);
 
         if (!$response instanceof Response) {
+
             if ($event->hasResponse()) {
+
                 $response = $event->getResponse();
             } else {
+
                 $msg = sprintf('The controller must return a "Symfony\Component\HttpFoundation\Response" object but it returned %s.', $this->varToString($response));
 
                 if (null === $response) {
@@ -329,11 +350,13 @@ final class Application implements HttpKernelInterface
     private function handleThrowable(Throwable $e, Request $request, int $type): Response
     {
         $exceptionEvent = new ExceptionEvent($this, $request, $type, $e);
+
         $this->dispatcher->dispatch($exceptionEvent, KernelEvents::EXCEPTION);
 
         $e = $exceptionEvent->getThrowable();
 
         if (!$exceptionEvent->hasResponse()) {
+
             $this->finishRequest($request, $type);
 
             throw $e;
@@ -344,16 +367,22 @@ final class Application implements HttpKernelInterface
         if (!$exceptionEvent->isAllowingCustomResponseCode() && !$response->isClientError() && !$response->isServerError() && !$response->isRedirect()) {
 
             if ($e instanceof HttpExceptionInterface) {
+
                 $response->setStatusCode($e->getStatusCode());
                 $response->headers->add($e->getHeaders());
+
             } else {
+
                 $response->setStatusCode(500);
             }
         }
 
         try {
+
             return $this->filterResponse($response, $request, $type);
+
         } catch (Exception $e) {
+
             return $response;
         }
     }

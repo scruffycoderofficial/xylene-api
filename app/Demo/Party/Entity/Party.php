@@ -1,34 +1,53 @@
 <?php
 
-namespace Xylene\Demo\App\Party\Entity;
+namespace Xylene\Demo\Party\Entity;
 
 use DateTime;
 
 /**
  * Class Party
  *
- * @package Xylene\Demo\App\Party\Entity
- * @author Luyanda Siko <sikoluyanda@gmail.com>
+ * @ORM\Entity
+ * @ORM\Table(name="parties")
  */
 class Party
 {
     /**
-     * @var string $name
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
-    protected $name;
+    private $id;
 
-    /** @var DateTime $addedOn */
-    protected $addedOn = null;
+    /**
+     * @var string $name
+     *
+     * @ORM\Column(name="name", type="string", length=225)
+     */
+    private $name;
+
+    /**
+     * @var DateTime $addedOn
+     *
+     * @ORM\Column(name="added_on", type="datetime")
+     */
+    private $addedOn = null;
 
     /**
      * @var bool $onBoarded
+     *
+     * @ORM\Column(name="on_boarded", type="boolean")
      */
-    protected $onBoarded = false;
+    private $onBoarded = false;
 
     /**
      * @var DateTime $onBoardingDate
+     *
+     * @ORM\Column(name="onboarding_date", type="datetime")
      */
-    protected $onBoardingDate = null;
+    private $onBoardingDate = null;
 
     /**
      * Party constructor.
