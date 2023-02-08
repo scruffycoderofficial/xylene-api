@@ -130,7 +130,7 @@ final class Application implements HttpKernelInterface
 
         try {
 
-            if (!$this->booted) {
+            if (!$this->isBooted()) {
                 $this->boot();
             }
 

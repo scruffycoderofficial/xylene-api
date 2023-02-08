@@ -5,6 +5,7 @@ declare(strict_types=1);
 use Xylene\Foundation\Application;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\DependencyInjection\Container;
+use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use function Symfony\Component\DependencyInjection\Loader\Configurator\service;
 

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Xylene\Console;
 
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
 use Throwable;
 use Exception;
 use Symfony\Component\Console\Command\Command;
@@ -12,6 +14,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Console\Command\ListCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\Console\Output\ConsoleOutputInterface;
 use Symfony\Component\Console\Application as ParentApplication;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
@@ -33,12 +36,10 @@ class Application extends ParentApplication
     /**
      * Application constructor.
      *
-     * @param KernelInterface $kernel
      * @param iterable $commands
      */
-    public function __construct(KernelInterface $kernel, iterable $commands)
+    public function __construct(iterable $commands)
     {
-        $this->kernel = $kernel;
 
         $commands = $commands instanceof \Traversable ? \iterator_to_array($commands) : $commands;
 
@@ -57,9 +58,9 @@ class Application extends ParentApplication
     /**
      * Gets the Kernel associated with this Console.
      *
-     * @return KernelInterface
+     * @return HttpKernelInterface
      */
-    public function getKernel(): KernelInterface
+    public function getKernel(): HttpKernelInterface
     {
         return $this->kernel;
     }
@@ -69,8 +70,14 @@ class Application extends ParentApplication
      */
     public function reset():  void
     {
-        if ($this->kernel->getContainer()->has('services_resetter')) {
-            $this->kernel->getContainer()->get('services_resetter')->reset();
+        if ($this->kernel instanceof \Xylene\Foundation\Application && $this->kernel->getContainer()->has('services_resetter')) {
+
+            try {
+
+                $this->kernel->getContainer()->get('services_resetter')->reset();
+
+            } catch (NotFoundExceptionInterface | ContainerExceptionInterface $e) {
+            }
         }
     }
 
@@ -89,7 +96,14 @@ class Application extends ParentApplication
             $this->renderRegistrationErrors($input, $output);
         }
 
-        $this->setDispatcher($this->kernel->getContainer()->get(EventDispatcherInterface::class));
+        if (method_exists($this, 'setDispatcher') && $this->kernel instanceof \Xylene\Foundation\Application) {
+            try {
+
+                $this->setDispatcher($this->kernel->getContainer()->get(EventDispatcherInterface::class));
+
+            } catch (NotFoundExceptionInterface | ContainerExceptionInterface $e) {
+            }
+        }
 
         return parent::doRun($input, $output);
     }
@@ -113,7 +127,7 @@ class Application extends ParentApplication
 
         $command = parent::get($name);
 
-        if ($command instanceof ContainerAwareInterface) {
+        if ($command instanceof ContainerAwareInterface && $this->kernel instanceof \Xylene\Foundation\Application) {
             $command->setContainer($this->kernel->getContainer());
         }
 
@@ -181,9 +195,11 @@ class Application extends ParentApplication
 
         $this->commandsRegistered = true;
 
-        $this->kernel->boot();
+        if ($this->kernel instanceof \Xylene\Foundation\Application) {
+            $this->kernel->boot();
 
-        $container = $this->kernel->getContainer();
+            $container = $this->kernel->getContainer();
+        }
 
         if ($container->has('console.command_loader')) {
             $this->setCommandLoader($container->get('console.command_loader'));
