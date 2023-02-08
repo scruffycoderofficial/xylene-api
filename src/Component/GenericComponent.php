@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Xylene\Component;
 
+use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\DependencyInjection\Exception\BadMethodCallException;
+use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 
 /**
  * Class GenericComponent
@@ -15,6 +17,12 @@ use Symfony\Component\DependencyInjection\Exception\BadMethodCallException;
  */
 abstract class GenericComponent implements Component
 {
+    /** {@inheritDoc} */
+    public function getFileLoader($paths, string $pointer): PhpFileLoader
+    {
+        return (new PhpFileLoader($container, new FileLocator($paths . $pointer)));
+    }
+
     /** {@inheritDoc} */
     public function getAlias(): string
     {
@@ -30,7 +38,7 @@ abstract class GenericComponent implements Component
     /** {@inheritDoc} */
     public function getNamespace(): string
     {
-        return 'http://xylene.io/schema/component/'.$this->getAlias();
+        return 'http://xylene.io/schema/component/' . $this->getAlias();
     }
 
     /** {@inheritDoc} */

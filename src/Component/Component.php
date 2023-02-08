@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Xylene\Component;
 
+use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
 
 /**
@@ -14,4 +15,10 @@ use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
  */
 interface Component extends ExtensionInterface
 {
+    /**
+     * @param $paths
+     * @param string $pointer
+     * @return PhpFileLoader
+     */
+    public function getFileLoader($paths, string $pointer): PhpFileLoader;
 }

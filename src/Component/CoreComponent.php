@@ -22,6 +22,12 @@ class CoreComponent extends GenericComponent
      */
     const NAME = 'core';
 
+    /** {@inheritDoc} */
+    public function getFileLoader($paths, string $pointer = self::NAME): PhpFileLoader
+    {
+        return parent::getFileLoader($paths, $pointer);
+    }
+
     /**
      * @param array $configs
      * @param ContainerBuilder $container
