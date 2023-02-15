@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace Xylene\Controller;
 
 use PHPUnit\Exception;
+use Xylene\Action\AboutActionHandler;
 use Xylene\Component\CoreComponent;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Xylene\Foundation\Application;
 
 /**
  * Class FrontController
@@ -51,6 +53,11 @@ abstract class FrontController
         } finally {
             $container->registerExtension($coreComponent);
         }
+    }
+
+    protected function loadAboutRoute(Application $app)
+    {
+        $app->map('/about', 'Xylene\Action\AboutActionHandler::index');
     }
 
     /**

@@ -90,6 +90,8 @@ final class DemoFrontController extends FrontController
 
             $app = $this->getApplication();
 
+            $this->loadAboutRoute($app);
+
             require_once __DIR__ . '/../routes.php';
 
         } catch (Exception $exc) {
