@@ -37,35 +37,6 @@ final class DemoFrontController extends FrontController
     }
 
     /**
-     * @return object
-     * @throws Exception
-     */
-    public function getApplication(): object
-    {
-        $app = null;
-
-        try {
-
-            $app = $this->container
-                ->get('xylene.app');
-
-            $app->setContainer($this->container);
-
-        } catch(Exception $exc) {
-
-        } finally {
-
-            if (!is_null($app)) {
-                return $app;
-            } else {
-                throw new Exception('No Application available.');
-            }
-        }
-    }
-
-
-
-    /**
      * Loads the file that configures Service Providers
      */
     protected function loadServiceProviders(): void
