@@ -1,0 +1,11 @@
+api_home:
+  path: /
+  defaults:
+    _controller: Xylene\Controller\DefaultController::defaultAction
+  methods: [ GET ]
+
+api_about:
+  path: /about
+  defaults:
+    _controller: Xylene\Controller\PageController::defaultAction
+  methods: [ GET ]
