@@ -7,15 +7,17 @@ namespace Xylene;
 use Exception;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
-use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+use Symfony\Component\DependencyInjection\Loader\YamlFileLoader as DefaultYamlFileLoader;
 use Symfony\Bridge\ProxyManager\LazyProxy\Instantiator\RuntimeInstantiator;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Routing\Loader\YamlFileLoader as RoutesYamlFileLoader;
 use Xylene\CompilerPass\RouterTagCompilerPass;
 
 /**
  * Class Container
  *
  * @package Xylene
+ * @author Siko Luyanda <sikoluyanda@gmail.com>
  */
 class Container extends ContainerBuilder
 {
@@ -35,12 +37,11 @@ class Container extends ContainerBuilder
 
         $container->setParameter('app_root', $rootPath);
 
-        $loader = new YamlFileLoader(
-            $container,
-            new FileLocator($rootPath . '/config')
-        );
+        $defaultLoader = new DefaultYamlFileLoader($container, new FileLocator($rootPath . '/config'));
+        $defaultLoader->load('services.yml');
 
-        $loader->load('services.yml');
+        $routesYamlLoader = new RoutesYamlFileLoader( new FileLocator($rootPath . '/config/routes'));
+        $routesYamlLoader->load('default.yml');
 
         $container->compile();
 

@@ -1,6 +1,3 @@
-#imports:
-# - { resource: 'routes/default.yml' }
-
 services:
 
   route.collection:

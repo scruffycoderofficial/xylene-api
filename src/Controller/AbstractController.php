@@ -12,6 +12,7 @@ use Symfony\Component\Routing\Generator\UrlGenerator;
  * Class WebController
  *
  * @package Xylene\Controller
+ * @author Siko Luyanda <sikoluyanda@gmail.com>s
  */
 abstract class AbstractController
 {

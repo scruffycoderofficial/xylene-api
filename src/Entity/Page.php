@@ -7,6 +7,8 @@ namespace Xylene\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
+ * @package Xylene\Entity
+ * @author Siko Luyanda <sikoluyanda@gmail.com>
  *
  * @ORM\Table(name="page")
  * @ORM\Entity

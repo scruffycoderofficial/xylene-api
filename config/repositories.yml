@@ -1,4 +1,5 @@
 services:
+
   repository.page:
     class: Doctrine\ORM\EntityRepository
     factory: [ "@doctrine.entity_manager", getRepository ]

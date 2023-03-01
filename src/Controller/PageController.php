@@ -13,6 +13,7 @@ use Xylene\Entity\Page;
  * Class PageController
  *
  * @package Xylene\Controller
+ * @author Siko Luyanda <sikoluyanda@gmail.com>
  */
 class PageController {
 

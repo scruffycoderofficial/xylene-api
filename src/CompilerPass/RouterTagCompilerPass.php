@@ -13,6 +13,7 @@ use Symfony\Component\DependencyInjection\Reference;
  * Class RouterTagCompilerPass
  *
  * @package Xylene\CompilerPass
+ * @author Siko Luyanda <sikoluyanda@gmail.com>
  */
 class RouterTagCompilerPass implements CompilerPassInterface
 {

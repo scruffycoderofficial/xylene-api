@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
  * Class DefaultController
  *
  * @package Xylene\Controller
+ * @author Siko Luyanda <sikoluyanda@gmail.com>
  */
 class DefaultController extends AbstractController
 {
