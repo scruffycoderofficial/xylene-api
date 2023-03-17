@@ -5,4 +5,4 @@ suites:
   app_demo_suite:
     namespace: Xylene
     psr4_prefix: Xylene
-    src_path: '%paths.config%/app'
+    src_path: '%paths.config%/src'
