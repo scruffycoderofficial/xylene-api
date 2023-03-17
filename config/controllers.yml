@@ -1,0 +1,18 @@
+services:
+
+  controller.base_web:
+    lazy: true
+    abstract: true
+    class: Xylene\Controller\AbstractController
+    arguments:
+      $request:  "@request"
+      $entityManager:  "@doctrine.entity_manager"
+      $urlGenerator:  "@router.generator"
+
+  controller.default:
+    class: Xylene\Controller\DefaultController
+    parent: controller.base_web
+
+  controller.page:
+    class: Xylene\Controller\PageController
+    arguments: ["@templating.twig", "@repository.page"]

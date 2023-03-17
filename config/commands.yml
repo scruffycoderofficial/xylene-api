@@ -1,0 +1,102 @@
+services:
+
+  yaml.lint_command:
+    class: Symfony\Component\Yaml\Command\LintCommand
+    tags: [ 'console.command' ]
+
+  doctrine.entity_manager_provider:
+    class: Doctrine\ORM\Tools\Console\EntityManagerProvider\SingleManagerProvider
+    arguments:
+      $entityManager: '@doctrine.entity_manager'
+
+  doctrine.abstract_entity_manager:
+    abstract: true
+    class: Doctrine\ORM\Tools\Console\Command\AbstractEntityManagerCommand
+    arguments:
+      $entityManagerProvider: '@doctrine.entity_manager_provider'
+
+  doctrine.collection_region:
+    class: Doctrine\ORM\Tools\Console\Command\ClearCache\CollectionRegionCommand
+    parent: 'doctrine.abstract_entity_manager'
+    tags: [ 'console.command' ]
+
+  doctrine.entity_region:
+    class: Doctrine\ORM\Tools\Console\Command\ClearCache\EntityRegionCommand
+    parent: 'doctrine.abstract_entity_manager'
+    tags: [ 'console.command' ]
+
+  doctrine.cache_clear:
+    class: Doctrine\ORM\Tools\Console\Command\ClearCache\MetadataCommand
+    parent: 'doctrine.abstract_entity_manager'
+    tags: [ 'console.command' ]
+
+  doctrine.query:
+    class: Doctrine\ORM\Tools\Console\Command\ClearCache\QueryCommand
+    parent: 'doctrine.abstract_entity_manager'
+    tags: [ 'console.command' ]
+
+  doctrine.query_region:
+    class: Doctrine\ORM\Tools\Console\Command\ClearCache\QueryRegionCommand
+    parent: 'doctrine.abstract_entity_manager'
+    tags: [ 'console.command' ]
+
+  doctrine.result:
+    class: Doctrine\ORM\Tools\Console\Command\ClearCache\ResultCommand
+    parent: 'doctrine.abstract_entity_manager'
+    tags: [ 'console.command' ]
+
+  doctrine.abstract_schema_tool:
+    abstract: true
+    class: Doctrine\ORM\Tools\Console\Command\SchemaTool\AbstractCommand
+    arguments:
+      $entityManagerProvider: '@doctrine.entity_manager_provider'
+
+  doctrine.create:
+    class: Doctrine\ORM\Tools\Console\Command\SchemaTool\CreateCommand
+    parent: 'doctrine.abstract_schema_tool'
+    tags: [ 'console.command' ]
+
+  doctrine.drop:
+    class: Doctrine\ORM\Tools\Console\Command\SchemaTool\DropCommand
+    parent: 'doctrine.abstract_schema_tool'
+    tags: [ 'console.command' ]
+
+  doctrine.update:
+    class: Doctrine\ORM\Tools\Console\Command\SchemaTool\UpdateCommand
+    parent: 'doctrine.abstract_schema_tool'
+    tags: [ 'console.command' ]
+
+  doctrine.generate_proxies:
+    class: Doctrine\ORM\Tools\Console\Command\GenerateProxiesCommand
+    parent: 'doctrine.abstract_entity_manager'
+    tags: [ 'console.command' ]
+
+  doctrine.info:
+    class: Doctrine\ORM\Tools\Console\Command\InfoCommand
+    parent: 'doctrine.abstract_entity_manager'
+    tags: [ 'console.command' ]
+
+  doctrine.mapping_describe:
+    class: Doctrine\ORM\Tools\Console\Command\MappingDescribeCommand
+    parent: 'doctrine.abstract_entity_manager'
+    tags: [ 'console.command' ]
+
+  doctrine.run_dql:
+    class: Doctrine\ORM\Tools\Console\Command\RunDqlCommand
+    parent: 'doctrine.abstract_entity_manager'
+    tags: [ 'console.command' ]
+
+  doctrine.validate_schema:
+    class: Doctrine\ORM\Tools\Console\Command\ValidateSchemaCommand
+    parent: 'doctrine.abstract_entity_manager'
+    tags: [ 'console.command' ]
+
+  doctrine.dbal_connection_provider:
+    class: Doctrine\DBAL\Tools\Console\ConnectionProvider\SingleConnectionProvider
+    arguments:
+      $connection: '@doctrine.connection'
+
+
+
+
+

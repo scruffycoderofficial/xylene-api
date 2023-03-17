@@ -1,0 +1,20 @@
+imports:
+  - { resource: 'kernel.yml' }
+  - { resource: 'controllers.yml' }
+  - { resource: 'routing.yml' }
+  - { resource: 'events.yml' }
+  - { resource: 'view.yml' }
+  - { resource: 'doctrine.yml' }
+  - { resource: 'repositories.yml' }
+  - { resource: 'commands.yml' }
+
+services:
+
+  _instanceof:
+    Symfony\Component\Console\Command\Command:
+      tags: [ 'console.command' ]
+
+  Xylene\Console\Application:
+    public: true
+    arguments:
+      - !tagged_iterator 'console.command'

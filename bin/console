@@ -1,13 +1,30 @@
 #!/usr/bin/env php
 <?php
 
-use Symfony\Component\Console\Application;
+declare(strict_types=1);
+
+date_default_timezone_set('UTC');
+
 use Symfony\Component\Dotenv\Dotenv;
+use Xylene\Console\Application;
+use Xylene\Container;
 
 require __DIR__ . '/../vendor/autoload.php';
 
-(new Dotenv())->load(__DIR__ . '/../.env');
+try
+{
 
-$cli = new Application();
+    (new Dotenv())->load(__DIR__ . '/../.env');
 
-$cli->run();
+    $container = Container::buildContainer(dirname(__DIR__, 1));
+
+    if (!$container->isCompiled()) {
+        $container->compile();
+    }
+
+    ($container->get(Application::class))->run();
+
+} catch(Exception $exc) {
+
+    echo "EXCEPTION with MESSAGE thrown: " . $exc->getMessage();
+}
