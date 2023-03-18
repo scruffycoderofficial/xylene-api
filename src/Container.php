@@ -9,7 +9,6 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader as DefaultYamlFileLoader;
-use Symfony\Component\Routing\Loader\YamlFileLoader as RoutesYamlFileLoader;
 use Xylene\CompilerPass\RouterTagCompilerPass;
 
 /**
@@ -34,9 +33,6 @@ class Container extends ContainerBuilder
 
         $defaultLoader = new DefaultYamlFileLoader($container, new FileLocator($rootPath.'/config'));
         $defaultLoader->load('services.yml');
-
-        $routesYamlLoader = new RoutesYamlFileLoader(new FileLocator($rootPath.'/config/routes'));
-        $routesYamlLoader->load('default.yml');
 
         $container->compile();
 

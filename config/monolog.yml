@@ -1,0 +1,34 @@
+services:
+
+  Monolog\Formatter\JsonFormatter:
+    public: false
+
+  app.logger_formatter:
+    alias: Monolog\Formatter\JsonFormatter
+
+  Monolog\Logger:
+    public: true
+    arguments:
+      $name: '%monolog.channel%'
+    calls:
+      - [ pushHandler, [ '@app.log_file_handler' ] ]
+
+  app.logger:
+    alias: Monolog\Logger
+    public: true
+
+  Monolog\Handler\RotatingFileHandler:
+    public: false
+    arguments:
+      $filename: '%app_root%/var/log/app.log'
+      $maxFiles: '%monolog.max_files%'
+    calls:
+      - [ setFormatter, [ '@app.logger_formatter' ] ]
+
+  app.log_file_handler:
+    public: false
+    alias: Monolog\Handler\RotatingFileHandler
+
+  Psr\Log\LoggerInterface:
+    alias: Monolog\Logger
+    public: true

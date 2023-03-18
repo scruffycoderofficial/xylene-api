@@ -3,3 +3,5 @@ vendor/
 var/
 
 a15579ac.png
+
+.php-cs-fixer.cache

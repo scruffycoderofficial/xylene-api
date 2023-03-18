@@ -1,11 +1,11 @@
-api_home:
+home:
   path: /
   defaults:
-    _controller: Xylene\Controller\DefaultController::defaultAction
-  methods: [ GET ]
+    controller: Xylene\Controller\DefaultController::defaultAction
+  methods: GET
 
-api_about:
+about:
   path: /about
   defaults:
-    _controller: Xylene\Controller\PageController::defaultAction
-  methods: [ GET ]
+    controller: Xylene\Controller\PageController::defaultAction
+  methods: GET
