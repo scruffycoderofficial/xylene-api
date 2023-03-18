@@ -1,0 +1,11 @@
+parameters:
+  doctrine.driver: "pdo_mysql"
+  doctrine.host: "db"
+  doctrine.user: "root"
+  doctrine.password: "mauFJcuf5dhRMQrjj"
+  doctrine.dbname: "xylene_db"
+  doctrine.paths: ["%app_root%/src/Entity"]
+  doctrine.is_dev: true
+
+  monolog.channel: 'daily'
+  monolog.max_files: 30

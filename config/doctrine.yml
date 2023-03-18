@@ -1,0 +1,25 @@
+services:
+
+  doctrine.config:
+    class: Doctrine\ORM\Configuration
+    factory: [ Doctrine\ORM\Tools\Setup, createAnnotationMetadataConfiguration ]
+    arguments:
+      $paths: "%doctrine.paths%"
+      $isDevMode: "%doctrine.is_dev%"
+      $proxyDir:
+      $cache:
+      $useSimpleAnnotationReader: false
+
+  doctrine.entity_manager:
+    class: Doctrine\ORM\EntityManager
+    public: true
+    factory: [ Doctrine\ORM\EntityManager, create ]
+    arguments:
+      $connection:
+        driver: "%doctrine.driver%"
+        host: "%doctrine.host%"
+        user: "%doctrine.user%"
+        password: "%doctrine.password%"
+        dbname: "%doctrine.dbname%"
+      $config: "@doctrine.config"
+

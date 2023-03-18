@@ -1,0 +1,11 @@
+home:
+  path: /
+  defaults:
+    controller: Xylene\Controller\DefaultController::defaultAction
+  methods: GET
+
+about:
+  path: /about
+  defaults:
+    controller: Xylene\Controller\PageController::defaultAction
+  methods: GET
