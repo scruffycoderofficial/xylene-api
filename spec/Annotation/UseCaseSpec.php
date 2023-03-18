@@ -4,14 +4,11 @@ declare(strict_types=1);
 
 namespace spec\Xylene\Annotation;
 
-use InvalidArgumentException;
 use PhpSpec\ObjectBehavior;
 use Xylene\Annotation\UseCase;
 
 /**
- * Class UseCaseSpec
- *
- * @package spec\Xylene\Annotation
+ * Class UseCaseSpec.
  */
 class UseCaseSpec extends ObjectBehavior
 {
@@ -31,9 +28,9 @@ class UseCaseSpec extends ObjectBehavior
             'value' => 'use_case',
             'input' => 'http',
             'response' => 'twig',
-            'foo' => 'this is just silly'
+            'foo' => 'this is just silly',
         ]);
-        $this->shouldThrow(new InvalidArgumentException('Unsupported options on UseCase annotation: input, response, foo'))
+        $this->shouldThrow(new \InvalidArgumentException('Unsupported options on UseCase annotation: input, response, foo'))
             ->duringInstantiation();
     }
 }

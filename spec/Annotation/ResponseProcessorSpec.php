@@ -5,9 +5,7 @@ namespace spec\Xylene\Annotation;
 use PhpSpec\ObjectBehavior;
 
 /**
- * Class ResponseProcessorSpec
- *
- * @package spec\Xylene\Annotation
+ * Class ResponseProcessorSpec.
  */
 class ResponseProcessorSpec extends ObjectBehavior
 {
@@ -15,7 +13,7 @@ class ResponseProcessorSpec extends ObjectBehavior
         $this->beConstructedWith([
             'value' => 'http',
             'order' => 'GPCS',
-            'map'   => ['foo' => 'baz']
+            'map' => ['foo' => 'baz'],
         ]);
     }
 
@@ -24,7 +22,7 @@ class ResponseProcessorSpec extends ObjectBehavior
         $annotationOptions = [
             'value' => 'http',
             'order' => 'GPCS',
-            'map'   => ['foo' => 'bar']
+            'map' => ['foo' => 'bar'],
         ];
 
         $this->beConstructedWith($annotationOptions);
@@ -32,7 +30,7 @@ class ResponseProcessorSpec extends ObjectBehavior
         $this->getName()->shouldBe('http');
         $this->getOptions()->shouldBe([
             'order' => 'GPCS',
-            'map'   => ['foo' => 'bar']
+            'map' => ['foo' => 'bar'],
         ]);
     }
 

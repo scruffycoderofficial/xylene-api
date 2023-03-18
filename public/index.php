@@ -9,12 +9,12 @@ date_default_timezone_set('UTC');
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
+(new Dotenv())->load(__DIR__ . '/../.env');
+
+$container = Container::buildContainer(dirname(__DIR__, 1));
+
 try
 {
-    (new Dotenv())->load(__DIR__ . '/../.env');
-
-    $container = Container::buildContainer(dirname(__DIR__, 1));
-
     if (!$container->isCompiled()) {
         $container->compile();
     }
@@ -26,5 +26,5 @@ try
     $container->get('http_kernel')->terminate($container->get('request'), $response);
 
 } catch(\Exception $exc) {
-    echo $exc->getMessage();
+    $container->get(\Psr\Log\LoggerInterface::class)->error($exc->getMessage());
 }

@@ -2,6 +2,7 @@ services:
 
   request:
     class: Symfony\Component\HttpFoundation\Request
+    public: true
     factory: [ Symfony\Component\HttpFoundation\Request, createFromGlobals ]
 
   request_stack:

@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace Xylene\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGenerator;
 
 /**
- * Class WebController
+ * Class WebController.
  *
- * @package Xylene\Controller
  * @author Siko Luyanda <sikoluyanda@gmail.com>s
  */
 abstract class AbstractController
@@ -25,7 +24,7 @@ abstract class AbstractController
     /** @var UrlGenerator */
     protected $urlGenerator;
 
-    function __construct(
+    public function __construct(
         Request $request,
         EntityManager $entityManager,
         UrlGenerator $urlGenerator

@@ -1,4 +1,5 @@
 imports:
+  - { resource: 'parameters.yml' }
   - { resource: 'kernel.yml' }
   - { resource: 'controllers.yml' }
   - { resource: 'routing.yml' }
@@ -7,6 +8,7 @@ imports:
   - { resource: 'doctrine.yml' }
   - { resource: 'repositories.yml' }
   - { resource: 'commands.yml' }
+  - { resource: 'monolog.yml' }
 
 services:
 

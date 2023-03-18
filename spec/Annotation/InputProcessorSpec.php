@@ -4,14 +4,11 @@ declare(strict_types=1);
 
 namespace spec\Xylene\Annotation;
 
-use InvalidArgumentException;
 use PhpSpec\ObjectBehavior;
 use Xylene\Annotation\InputProcessor;
 
 /**
- * Class InputProcessorSpec
- *
- * @package spec\Xylene\Annotation
+ * Class InputProcessorSpec.
  */
 class InputProcessorSpec extends ObjectBehavior
 {
@@ -19,7 +16,7 @@ class InputProcessorSpec extends ObjectBehavior
         $this->beConstructedWith([
             'value' => 'http',
             'order' => 'GPCS',
-            'map'   => ['foo' => 'baz']
+            'map' => ['foo' => 'baz'],
         ]);
     }
 
@@ -33,7 +30,7 @@ class InputProcessorSpec extends ObjectBehavior
         $annotationOptions = [
             'value' => 'http',
             'order' => 'GPCS',
-            'map'   => ['foo' => 'bar']
+            'map' => ['foo' => 'bar'],
         ];
 
         $this->beConstructedWith($annotationOptions);
@@ -41,13 +38,13 @@ class InputProcessorSpec extends ObjectBehavior
         $this->getName()->shouldBe('http');
         $this->getOptions()->shouldBe([
             'order' => 'GPCS',
-            'map'   => ['foo' => 'bar']
+            'map' => ['foo' => 'bar'],
         ]);
     }
 
     public function it_throws_an_exception_if_no_value_was_given()
     {
         $this->beConstructedWith([]);
-        $this->shouldThrow(InvalidArgumentException::class)->duringInstantiation();
+        $this->shouldThrow(\InvalidArgumentException::class)->duringInstantiation();
     }
 }

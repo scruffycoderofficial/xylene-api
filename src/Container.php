@@ -4,28 +4,23 @@ declare(strict_types=1);
 
 namespace Xylene;
 
-use Exception;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\Config\FileLocator;
-use Symfony\Component\DependencyInjection\Loader\YamlFileLoader as DefaultYamlFileLoader;
 use Symfony\Bridge\ProxyManager\LazyProxy\Instantiator\RuntimeInstantiator;
+use Symfony\Component\Config\FileLocator;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\DependencyInjection\Loader\YamlFileLoader as DefaultYamlFileLoader;
 use Symfony\Component\Routing\Loader\YamlFileLoader as RoutesYamlFileLoader;
 use Xylene\CompilerPass\RouterTagCompilerPass;
 
 /**
- * Class Container
+ * Class Container.
  *
- * @package Xylene
  * @author Siko Luyanda <sikoluyanda@gmail.com>
  */
 class Container extends ContainerBuilder
 {
-
     /**
-     * @param $rootPath
-     * @return Container
-     * @throws Exception
+     * @throws \Exception
      */
     public static function buildContainer($rootPath): Container
     {
@@ -37,10 +32,10 @@ class Container extends ContainerBuilder
 
         $container->setParameter('app_root', $rootPath);
 
-        $defaultLoader = new DefaultYamlFileLoader($container, new FileLocator($rootPath . '/config'));
+        $defaultLoader = new DefaultYamlFileLoader($container, new FileLocator($rootPath.'/config'));
         $defaultLoader->load('services.yml');
 
-        $routesYamlLoader = new RoutesYamlFileLoader( new FileLocator($rootPath . '/config/routes'));
+        $routesYamlLoader = new RoutesYamlFileLoader(new FileLocator($rootPath.'/config/routes'));
         $routesYamlLoader->load('default.yml');
 
         $container->compile();
@@ -50,13 +45,13 @@ class Container extends ContainerBuilder
 
     /**
      * @param string $id
-     * @param int $invalidBehavior
-     * @return object|null
-     * @throws Exception
+     * @param int    $invalidBehavior
+     *
+     * @throws \Exception
      */
     public function get($id, $invalidBehavior = ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE): ?object
     {
-        if (strtolower($id) == 'service_container') {
+        if ('service_container' === strtolower($id)) {
             if (ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE !== $invalidBehavior) {
                 return null;
             }

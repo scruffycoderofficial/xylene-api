@@ -4,12 +4,8 @@ declare(strict_types=1);
 
 namespace Xylene\Annotation;
 
-use InvalidArgumentException;
-
 /**
- * Class UseCase
- *
- * @package Xylene\Annotation
+ * Class UseCase.
  */
 class UseCase
 {
@@ -20,8 +16,6 @@ class UseCase
 
     /**
      * UseCase constructor.
-     *
-     * @param array $data
      */
     public function __construct(array $data)
     {
@@ -33,9 +27,7 @@ class UseCase
         if (!empty($data)) {
             $invalidOptions = array_keys($data);
             if (count($invalidOptions) > 0) {
-                throw new InvalidArgumentException(sprintf(
-                    'Unsupported options on UseCase annotation: %s', implode(', ', $invalidOptions)
-                ));
+                throw new \InvalidArgumentException(sprintf('Unsupported options on UseCase annotation: %s', implode(', ', $invalidOptions)));
             }
         }
     }

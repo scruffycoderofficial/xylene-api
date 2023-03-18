@@ -14,7 +14,8 @@
         "symfony/cache": "^6.0",
         "doctrine/annotations": "^2.0",
         "doctrine/orm": "^2.14",
-        "symfony/proxy-manager-bridge": "^6.0"
+        "symfony/proxy-manager-bridge": "^6.0",
+        "twig/twig": "^3.5"
     },
     "autoload": {
         "psr-4": {
@@ -28,10 +29,14 @@
     },
     "require-dev": {
         "phpspec/phpspec": "^7.2",
-        "phpunit/phpunit": "^9.5"
+        "phpunit/phpunit": "^9.5",
+        "friendsofphp/php-cs-fixer": "^3.15"
     },
     "scripts": {
         "test": "vendor/bin/phpunit",
-        "test-ci": "vendor/bin/phpunit --coverage-text --coverage-clover=build/coverage.xml"
+        "test-ci": "vendor/bin/phpunit --coverage-text --coverage-clover=build/coverage.xml",
+        "fix-src": "vendor/bin/php-cs-fixer fix src/ --rules=@Symfony,-@PSR12,-blank_line_before_statement,strict_comparison --allow-risky=yes",
+        "fix-specs": "vendor/bin/php-cs-fixer fix spec/ --rules=@Symfony,-@PSR12,-blank_line_before_statement,strict_comparison --allow-risky=yes",
+        "fix-tests": "vendor/bin/php-cs-fixer fix tests/ --rules=@Symfony,-@PSR12,-blank_line_before_statement,strict_comparison --allow-risky=yes"
     }
 }

@@ -3,9 +3,7 @@
 namespace Xylene\Annotation;
 
 /**
- * Class ResponseProcessor
- *
- * @package Xylene\Annotation
+ * Class ResponseProcessor.
  */
 class ResponseProcessor extends ProcessorAnnotation
 {

@@ -3,15 +3,10 @@
 namespace Xylene\Annotation;
 
 /**
- * Class InputProcessor
- *
- * @package Xylene\Annotation
+ * Class InputProcessor.
  */
 class InputProcessor extends ProcessorAnnotation
 {
-    /**
-     * @return string
-     */
     public function getType(): string
     {
         return 'input';

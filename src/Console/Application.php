@@ -7,15 +7,12 @@ use Symfony\Component\Console\Application as BaseApplication;
 /**
  * Class Application.
  *
- * @package Xylene\Console
  * @author Siko Luyanda <sikoluyanda@gmail.com>
  */
 class Application extends BaseApplication
 {
     /**
      * Application constructor.
-     *
-     * @param iterable $commands
      */
     public function __construct(iterable $commands)
     {
