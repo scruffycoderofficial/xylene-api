@@ -25,6 +25,9 @@ class Container extends ContainerBuilder
     {
         $container = new self();
 
+        $container->setParameter('container.autowiring.strict_mode', true);
+        $container->setParameter('container.dumper.inline_class_loader', true);
+
         $container->addCompilerPass(new RouterTagCompilerPass());
 
         $container->setProxyInstantiator(new RuntimeInstantiator());

@@ -1,22 +1,31 @@
-version: '3.8'
+version: '3.9'
 
 services:
 
-  web:
-    build:
-      context: ./infra/backend
-      dockerfile: Dockerfile
+  nginx:
+    container_name: nginx
+    build: ./infra/backend/nginx
+    command: nginx -g "daemon off;"
+    links:
+      - php
     ports:
-      - 8182:80
+      - "8182:80"
     volumes:
+      - ./var/nginx:/var/log/nginx
       - .:/var/www/html
+    networks:
+      - xylene-network
+
+  php:
+    container_name: php
+    build: ./infra/backend/php
+    ports:
+      - "9000:9000"
     links:
       - db
-    environment:
-      DB_HOST: db
-      DB_USER: root
-      DB_PASSWORD: mauFJcuf5dhRMQrjj
-      DB_NAME: xylene_db
+    volumes:
+      - .:/var/www/html
+    working_dir: /var/www/html
     networks:
       - xylene-network
 
@@ -46,6 +55,49 @@ services:
     environment:
       PMA_HOST: db
       MYSQL_ROOT_PASSWORD: mauFJcuf5dhRMQrjj
+    networks:
+      - xylene-network
+
+  mongo:
+    image: mongo:5.0
+    container_name: mongo
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=password
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./var/db/mongodb/db:/data/db
+      - ./var/db/mongodb/dev.archive:/Databases/dev.archive
+      - ./var/db/mongodb/production:/Databases/production
+    networks:
+      - xylene-network
+
+  mongo-express:
+    image: mongo-express
+    container_name: mexpress
+    environment:
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=root
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=password
+      - ME_CONFIG_MONGODB_URL=mongodb://root:password@mongo:27017/?authSource=admin
+      - ME_CONFIG_BASICAUTH_USERNAME=mexpress
+      - ME_CONFIG_BASICAUTH_PASSWORD=mexpress
+    links:
+      - mongo
+    restart: unless-stopped
+    ports:
+      - "8082:8081"
+    networks:
+      - xylene-network
+
+  mailhog:
+    image: mailhog/mailhog
+    logging:
+      driver: 'none'  # disable saving logs
+    ports:
+      - 1025:1025 # smtp server
+      - 8025:8025 # web ui
     networks:
       - xylene-network
 
